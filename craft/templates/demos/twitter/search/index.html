@@ -1,0 +1,34 @@
+    <html>
+        <head>
+            <title>{{ "Twitter Demo"|t }}</title>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        </head>
+
+        <body>
+            <h1>{{ "Twitter Demo"|t }}</h1>
+            <div id="tweets">{{ "Loading tweets…"|t }}</div>
+        </body>
+    </html>
+
+    {% set js %}
+
+        $.ajax({
+            url: "{{ url('twitter/search.json') }}",
+            success: function(response)
+            {
+                console.log('success', response);
+
+                var $ul = $('<ul />');
+
+                $.each(response, function(key, tweet)
+                {
+                    var $li = $('<li>'+tweet.text+'<br><span class="tweetdate">'+tweet.date+'</span></li>').appendTo($ul);
+                });
+
+                $('#tweets').html('');
+                $ul.appendTo($('#tweets'));
+            }
+        });
+
+    {% endset %}
+    {% includeJs js %}

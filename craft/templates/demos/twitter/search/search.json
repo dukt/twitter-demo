@@ -1,0 +1,25 @@
+{%- spaceless %}
+
+    {% cache for 1 hour %}
+
+        {% set tweets = [] %}
+
+        {% set response = craft.twitter.get('search/tweets', { q:'#craftcms' }) %}
+
+        {% if response.statuses is defined %}
+
+            {% for tweetResponse in response.statuses %}
+                {% set tweets = tweets|merge([{
+                    id: tweetResponse.id,
+                    text: tweetResponse.text | autoLinkTweet,
+                    date: tweetResponse.created_at | date("D j M Y")
+                }]) %}
+            {% endfor %}
+
+        {% endif %}
+
+        {{ tweets|json_encode|raw }}
+
+    {% endcache %}
+
+{% endspaceless -%}
