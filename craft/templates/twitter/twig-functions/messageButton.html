@@ -1,0 +1,16 @@
+{% extends "twitter/_layout" %}
+
+{% includeJsResource '../twitter/timeline/js/modernizr.custom.js' %}
+
+{% set title = "twitterFollowButton" %}
+
+{% block main %}
+
+	<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+	<div class="col-md-6">
+
+		{{ twitterMessageButton('3805104374', 'furni', null, {size: 'large'}) }}
+
+	</div>
+{% endblock main %}

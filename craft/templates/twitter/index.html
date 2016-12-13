@@ -1,0 +1,41 @@
+{% extends "twitter/_layout" %}
+
+
+{% block main %}
+
+    <div class="col-md-12">
+        <h1>Twitter Plugin Demos</h1>
+
+        <p>Welcome ! These examples will show you how to use Twitter features on your Craft website.</p>
+
+        <h3>Demos</h3>
+
+        <ul>
+            <li><a href="{{url('twitter/auto-linking-tweets')}}">Auto Linking Tweets</a></li>
+            <li><a href="{{url('twitter/recent')}}">Recent Tweets</a></li>
+            <li><a href="{{url('twitter/mentions')}}">Mentions</a></li>
+        </ul>
+
+        <h2>Twig Functions</h2>
+
+        <ul>
+            <li><a href="{{url('twitter/twig-functions/grid')}}">twitterGrid</a></li>
+            <li><a href="{{url('twitter/twig-functions/timeline')}}">twitterTimeline</a></li>
+            <li><a href="{{url('twitter/twig-functions/tweet')}}">twitterTweet</a></li>
+            <li><a href="{{url('twitter/twig-functions/video')}}">twitterVideo</a></li>
+            <li><a href="{{url('twitter/twig-functions/moment')}}">twitterMoment</a></li>
+            <li><a href="{{url('twitter/twig-functions/followButton')}}">twitterFollowButton</a></li>
+            <li><a href="{{url('twitter/twig-functions/messageButton')}}">twitterMessageButton</a></li>
+            <li><a href="{{url('twitter/twig-functions/tweetButton')}}">twitterTweetButton</a></li>
+        </ul>
+
+        <h2>Twig Filters</h2>
+
+        <ul>
+            <li>autoLinkTweet</li>
+            <li>twitterTimeAgo</li>
+        </ul>
+
+    </div>
+
+{% endblock main %}

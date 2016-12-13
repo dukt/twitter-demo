@@ -1,0 +1,44 @@
+{% extends "twitter/_layout" %}
+
+{% includeJsResource '../twitter/timeline/js/modernizr.custom.js' %}
+
+{% set title = "twitterOEmbed" %}
+
+{% block main %}
+
+	<div class="col-md-6">
+
+		<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+		<h3>Options</h3>
+
+		<ul>
+			<li>maxwidth</li>
+			<li>hide_media</li>
+			<li>hide_thread</li>
+			<li>omit_script</li>
+			<li>align</li>
+			<li>related</li>
+			<li>lang</li>
+			<li>widget_type</li>
+			<li>hide_tweet</li>
+		</ul>
+
+		{% set oEmbed = twitterOEmbed('https://twitter.com/Interior/status/463440424141459456', { hide_media: true, maxwidth: 300, omit_script: true }) %}
+
+		{{ oEmbed.html|raw }}
+{#
+		<h3>Video</h3>
+
+		{% set oEmbed = twitterOEmbed('https://twitter.com/twitter/status/560070183650213889', { widget_type: 'video', hide_tweet: false, omit_script: true }) %}
+
+		{{ oEmbed.html|raw }}
+
+		<h3>Timeline</h3>
+
+		{% set oEmbed = twitterOEmbed('https://twitter.com/craftcms', { hide_thread: true, omit_script: true }) %}
+
+		{{ oEmbed.html|raw }}#}
+
+	</div>
+{% endblock main %}

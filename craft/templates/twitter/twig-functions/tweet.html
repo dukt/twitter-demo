@@ -1,0 +1,31 @@
+{% extends "twitter/_layout" %}
+
+{% includeJsResource '../twitter/timeline/js/modernizr.custom.js' %}
+
+{% set title = "twitterTweet" %}
+
+{% block main %}
+
+	<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+	<div class="col-md-12">
+
+		<h3>Options</h3>
+
+		<ul>
+			<li>conversation</li>
+			<li>cards</li>
+			<li>link-color</li>
+			<li>theme</li>
+			<li>width</li>
+			<li>height</li>
+			<li>align</li>
+			<li>lang</li>
+			<li>dnt</li>
+		</ul>
+
+		{#{{ twitterTweet('https://twitter.com/Interior/status/463440424141459456', { theme: "dark", linkColor:'#19CF86' }) }}#}
+		{{ twitterTweet('https://twitter.com/Interior/status/463440424141459456', { theme: "dark", linkColor:'#19CF86' }) }}
+
+	</div>
+{% endblock main %}
