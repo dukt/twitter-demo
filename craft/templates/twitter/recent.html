@@ -1,6 +1,6 @@
 {% extends "twitter/_layout" %}
 
-{% includeJsResource '../twitter/timeline/js/modernizr.custom.js' %}
+{% do view.registerJsFile('../twitter/timeline/js/modernizr.custom.js') %}
 
 {% block main %}
 
