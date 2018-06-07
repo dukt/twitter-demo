@@ -26,80 +26,42 @@
 
         {% if twitterExample is defined %}
 
-            {% set fields = twitterExample.fieldLayout.fields %}
+			{% if twitterExample.mentions|length > 0 %}
+				{% for mention in twitterExample.mentions %}
 
-            {% set mentionsFieldFound = false %}
+					{% set mentionId = 'mention-' ~ mention.id %}
+                    {% set tweet = mention.tweet %}
 
-            {% for field in fields %}
-                {% if field.field.handle == 'mentions' and field.field.type == 'Matrix' %}
-                    {% set mentionsFieldFound = true %}
-                {% endif %}
-            {% endfor %}
+                    {% if tweet %}
+                        <div id="{{ mentionId }}" class="col-md-4 mention {{ mention.type }}">
 
+                            {% set url = 'https://twitter.com/' ~ tweet.userScreenName ~ '/status/' ~ tweet.remoteId %}
+                            {% set imageUrl = craft.twitter.getUserImageUrl(tweet.userId, 73) %}
+                            {% set author = tweet.userName ~ ' (@' ~ tweet.userScreenName ~ ') on Twitter' %}
+                            {% set quote = tweet.text %}
 
-            {% if mentionsFieldFound %}
+                            <img src="{{imageUrl}}" />
 
-                {% if twitterExample.mentions|length > 0 %}
-                    {% for mention in twitterExample.mentions %}
+                            <p><cite><a href="{{ url }}" title="{{ author }}">{{ author }}</a></cite></p>
 
-                        {% set mentionId = 'mention-' ~ mention.id %}
+                            <blockquote>{{ quote }}</blockquote>
 
-                        {% if mention.type == 'tweet' %}
-
-                            {% set tweetFieldFound = false %}
-
-                            {% for field in mention.fieldLayout.fields %}
-                                {% if field.field.handle == 'tweet' and field.field.type == 'Twitter_Tweet' %}
-                                    {% set tweetFieldFound = true %}
-                                {% endif %}
-                            {% endfor %}
-
-                            {% if tweetFieldFound %}
-
-                                {% set tweet = mention.tweet %}
-
-                                {% if tweet %}
-                                    <div id="{{ mentionId }}" class="col-md-4 mention {{ mention.type }}">
-
-                                        {% set user = tweet.user %}
-
-                                        {% set url = 'https://twitter.com/' ~ user.screen_name ~ '/status/' ~ tweet.id %}
-                                        {% set imageUrl = craft.twitter.getUserImageUrl(user.id, 73) %}
-                                        {% set author = user.name ~ ' (@' ~ user.screen_name ~ ') on Twitter' %}
-                                        {% set quote = tweet.text %}
-
-                                        <img src="{{imageUrl}}" />
-
-                                        <p><cite><a href="{{ url }}" title="{{ author }}">{{ author }}</a></cite></p>
-
-                                        <blockquote>{{ quote }}</blockquote>
-
-                                    </div>
-                                {% else %}
-                                    {% if not mention.content.tweet is empty %}
-                                        <p>Tweet “{{ mention.content.tweet }}” not found.</p>
-                                    {% endif %}
-                                {% endif %}
-
-                            {% else %}
-                                <p>Couldn't find Tweet field.</p>
-                            {% endif %}
-
-                        {% else %}
-                            <p>Block type tweet couldn't be found.</p>
+                        </div>
+                    {% else %}
+                        {% if not mention.content.tweet is empty %}
+                            <p>Tweet “{{ mention.content.tweet }}” not found.</p>
                         {% endif %}
+                    {% endif %}
 
-                        {% if loop.index is divisible by(3) %}
-                            <div class="clearfix"></div>
-                        {% endif %}
+					{% if loop.index is divisible by(3) %}
+                        <div class="clearfix"></div>
+					{% endif %}
 
-                    {% endfor %}
-                {% else %}
-                    <p>Couldn't find any mentions, please populate some content.</p>
-                {% endif %}
-            {% else %}
-                <p>Preview not available because <strong>Mentions</strong> <small>(<code>mentions</code>)</small> matrix field couldn't be found in <strong>Twitter Example</strong> <small>(<code>twitterExample</code>)</small> global.</p>
-            {% endif %}
+				{% endfor %}
+			{% else %}
+                <p>Couldn't find any mentions, please populate some content.</p>
+			{% endif %}
+
         {% else %}
             <p>Preview not available because <strong>Twitter Example</strong> <small>(<code>twitterExample</code>)</small> global couldn't be found.</p>
         {% endif %}
