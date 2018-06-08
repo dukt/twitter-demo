@@ -11,17 +11,13 @@
     <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
     <div class="col-md-12">
-
-
         <h3>Preview</h3>
-
         {% set tweetId = 133640144317198338 %}
         {% set options = { theme: "dark" } %}
 
         {{ embedTweet(tweetId, options) }}
 
         <h3>Template</h3>
-
         <pre>{{ '<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 {% set tweetId = 133640144317198338 %}
@@ -31,5 +27,4 @@
 
         <p>See <a href="https://dukt.net/craft/twitter/docs/templating/embedded-tweets">Embedded Tweets Documentation</a> for usage and options.</p>
     </div>
-
 {% endblock main %}

@@ -18,8 +18,8 @@
         <h3>Preview</h3>
 
         {% if twitterExample is defined %}
-			{% if twitterExample.mentions|length > 0 %}
-				{% for mention in twitterExample.mentions %}
+            {% if twitterExample.mentions|length > 0 %}
+                {% for mention in twitterExample.mentions %}
                     {% set tweetUrl = mention.tweet %}
                     {% set tweet = craft.twitter.getTweetByUrl(tweetUrl) %}
 
@@ -33,13 +33,13 @@
                         <p>Tweet not found.</p>
                     {% endif %}
 
-					{% if loop.index is divisible by(3) %}
+                    {% if loop.index is divisible by(3) %}
                         <div class="clearfix"></div>
-					{% endif %}
-				{% endfor %}
-			{% else %}
+                    {% endif %}
+                {% endfor %}
+            {% else %}
                 <p>Couldn't find any mentions, please populate some content.</p>
-			{% endif %}
+            {% endif %}
         {% else %}
             <p>Preview not available because <strong>Twitter Example</strong> <small>(<code>twitterExample</code>)</small> global couldn't be found.</p>
         {% endif %}

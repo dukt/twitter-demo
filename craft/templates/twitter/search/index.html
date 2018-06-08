@@ -1,33 +1,31 @@
-    <html>
-        <head>
-            <title>{{ "Twitter Demo"|t }}</title>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-        </head>
+<html>
+<head>
+    <title>{{ "Twitter Demo"|t }}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+</head>
 
-        <body>
-            <h1>{{ "Twitter Demo"|t }}</h1>
-            <div id="tweets">{{ "Loading tweets…"|t }}</div>
-        </body>
-    </html>
+<body>
+    <h1>{{ "Twitter Demo"|t }}</h1>
+    <div id="tweets">{{ "Loading tweets…"|t }}</div>
+</body>
+</html>
 
-    {% js %}
+{% js %}
+    $.ajax({
+        url: "{{ url('twitter/search.json') }}",
+        success: function(response)
+        {
+            console.log('success', response);
 
-        $.ajax({
-            url: "{{ url('twitter/search.json') }}",
-            success: function(response)
+            var $ul = $('<ul />');
+
+            $.each(response, function(key, tweet)
             {
-                console.log('success', response);
+                var $li = $('<li>'+tweet.text+'<br><span class="tweetdate">'+tweet.date+'</span></li>').appendTo($ul);
+            });
 
-                var $ul = $('<ul />');
-
-                $.each(response, function(key, tweet)
-                {
-                    var $li = $('<li>'+tweet.text+'<br><span class="tweetdate">'+tweet.date+'</span></li>').appendTo($ul);
-                });
-
-                $('#tweets').html('');
-                $ul.appendTo($('#tweets'));
-            }
-        });
-
-    {% endjs %}
+            $('#tweets').html('');
+            $ul.appendTo($('#tweets'));
+        }
+    });
+{% endjs %}

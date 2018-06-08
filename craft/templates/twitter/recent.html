@@ -1,39 +1,28 @@
 {% extends "twitter/_layout" %}
 
 {% block main %}
-
     <div class="col-md-12">
-
         <h1>Recent Tweets</h1>
-
         <p>Display recent tweets by requesting twitter API from your templates.</p>
 
         <h3>Preview</h3>
-
         <div class="panel panel-default">
             <div class="panel-body">
-
                 {% set tweets = craft.twitter.get("statuses/user_timeline", {count:5}) %}
 
                 {% if tweets %}
-
                     {% for tweet in tweets %}
                         <div class="tweet">
-
                             {{ tweet.text|autoLinkTweet }}
 
                             {% if not loop.last %}
                                 <hr>
                             {% endif %}
-
-
                         </div>
                     {% endfor %}
-
                 {% else %}
                     <p>No tweets</p>
                 {% endif %}
-
             </div>
         </div>
 
@@ -54,5 +43,4 @@
 
         <p>See <a href="https://dukt.net/craft/twitter/docs/templating/request-api">Requesting Twitter API</a> for more.</p>
     </div>
-
 {% endblock main %}

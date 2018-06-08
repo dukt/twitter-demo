@@ -3,15 +3,12 @@
 {% set title = "twitterFollowButton" %}
 
 {% block main %}
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-	<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-	<div class="col-md-6">
-
-		{{ twitterTweetButton({
-			text: 'My super default text',
-			size: 'large'
-		}) }}
-
-	</div>
+    <div class="col-md-6">
+        {{ twitterTweetButton({
+            text: 'My super default text',
+            size: 'large'
+        }) }}
+    </div>
 {% endblock main %}

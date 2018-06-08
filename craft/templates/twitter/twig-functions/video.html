@@ -3,14 +3,11 @@
 {% set title = "twitterVideo" %}
 
 {% block main %}
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-	<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <div class="col-md-12">
+        <h2>Video Tweet</h2>
 
-	<div class="col-md-12">
-
-		<h2>Video Tweet</h2>
-
-		{{ twitterVideo('https://twitter.com/twitter/status/560070183650213889', { theme: "dark" }) }}
-
-	</div>
+        {{ twitterVideo('https://twitter.com/twitter/status/560070183650213889', { theme: "dark" }) }}
+    </div>
 {% endblock main %}
