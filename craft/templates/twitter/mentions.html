@@ -1,17 +1,11 @@
 {% extends "twitter/_layout" %}
 
 {% block main %}
-
     <div class="col-md-12">
-
-
         <h1>Mentions</h1>
-
         <p>Use Tweet fields and Craft globals to display mentions from your customers on your website.</p>
 
-
         <h3>Configuration</h3>
-
         <ul>
             <li>Install Twitter plugin</li>
             <li>Create a global and call it <strong>Twitter Example</strong> <small>(<code>twitterExample</code>)</small></li>
@@ -21,91 +15,34 @@
             <li>Copy some tweet URLs and create fixture mentions</li>
         </ul>
 
-
         <h3>Preview</h3>
 
         {% if twitterExample is defined %}
-
 			{% if twitterExample.mentions|length > 0 %}
 				{% for mention in twitterExample.mentions %}
-
-					{% set mentionId = 'mention-' ~ mention.id %}
-                    {% set tweet = mention.tweet %}
+                    {% set tweetUrl = mention.tweet %}
+                    {% set tweet = craft.twitter.getTweetByUrl(tweetUrl) %}
 
                     {% if tweet %}
-                        <div id="{{ mentionId }}" class="col-md-4 mention {{ mention.type }}">
-
-                            {% set url = 'https://twitter.com/' ~ tweet.userScreenName ~ '/status/' ~ tweet.remoteId %}
-                            {% set imageUrl = craft.twitter.getUserImageUrl(tweet.userId, 73) %}
-                            {% set author = tweet.userName ~ ' (@' ~ tweet.userScreenName ~ ') on Twitter' %}
-                            {% set quote = tweet.text %}
-
-                            <img src="{{imageUrl}}" />
-
-                            <p><cite><a href="{{ url }}" title="{{ author }}">{{ author }}</a></cite></p>
-
-                            <blockquote>{{ quote }}</blockquote>
-
+                        <div class="tweet">
+                            <img src="{{ tweet.getUserProfileImageUrl(73) }}" />
+                            <p><cite><a href="{{ tweet.url }}">{{ tweet.username }} (@{{ tweet.userScreenName }})</a></cite></p>
+                            <blockquote>{{ tweet.text|autoLinkTweet }}</blockquote>
                         </div>
                     {% else %}
-                        {% if not mention.content.tweet is empty %}
-                            <p>Tweet “{{ mention.content.tweet }}” not found.</p>
-                        {% endif %}
+                        <p>Tweet not found.</p>
                     {% endif %}
 
 					{% if loop.index is divisible by(3) %}
                         <div class="clearfix"></div>
 					{% endif %}
-
 				{% endfor %}
 			{% else %}
                 <p>Couldn't find any mentions, please populate some content.</p>
 			{% endif %}
-
         {% else %}
             <p>Preview not available because <strong>Twitter Example</strong> <small>(<code>twitterExample</code>)</small> global couldn't be found.</p>
         {% endif %}
-
-        <div class="clearfix"></div>
-
-
-        <h3>Template</h3>
-
-        <pre>{{ '{% for mention in twitterExample.mentions %}
-
-    {% set mentionId = "mention-" ~ mention.id %}
-
-    {% if mention %}
-        <div id="{{ mentionId }}" class="col-md-4 mention {{ mention.type }}">
-            {% if mention.type == "tweet" %}
-                {% set tweet = mention.tweet %}
-
-                {% if tweet.id is defined %}
-                    {% set user = tweet.user %}
-
-                    {% set url = "https://twitter.com/" ~ user.screen_name ~ "/status/" ~ tweet.id %}
-                    {% set imageUrl = craft.twitter.getUserImageUrl(user.id, 73) %}
-                    {% set author = user.name ~ " (@" ~ user.screen_name ~ ") on Twitter" %}
-                    {% set quote = tweet.text %}
-
-                    <img src="{{imageUrl}}" />
-
-                    <p><cite><a href="{{ url }}" title="{{ author }}">{{ author }}</a></cite></p>
-
-                    <blockquote>{{ quote }}</blockquote>
-                {% endif %}
-            {% else %}
-                ...
-            {% endif %}
-        </div>
-    {% endif %}
-
-    {% if loop.index is divisible by(3) %}
-        <div class="clearfix"></div>
-    {% endif %}
-{% endfor %}'|e('html') }}</pre>
-
-
     </div>
 {% endblock main %}
 
