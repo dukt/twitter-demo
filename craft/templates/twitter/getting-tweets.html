@@ -1,0 +1,17 @@
+{% extends "twitter/_layout" %}
+
+{% block main %}
+    <div class="col-md-12">
+        <h1>Getting Tweets</h1>
+
+        <h2>Getting a tweet by URL</h2>
+        {% set tweet = craft.twitter.getTweetByUrl('https://twitter.com/CraftCMS/status/998619839043256321') %}
+        <pre>{{ tweet|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+
+        <h2>Getting a tweet by ID</h2>
+        {% set tweet = craft.twitter.getTweetById('998619839043256321') %}
+        <pre>{{ tweet|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+    </div>
+{% endblock main %}
+
+
