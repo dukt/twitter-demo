@@ -23,9 +23,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <p>
-                    <em>This page is a demo of <a href="https://dukt.net/twitter/">Twitter plugin for Craft CMS</a>.</em>
-                </p>
+                {% if craft.request.segment(2) %}
+                    <p>
+                        <a href="{{ url('twitter') }}">← Twitter Demo</a>
+                    </p>
+                {% endif %}
 
                 {% if title is defined and title %}
                     <h1>{{ title|raw }}</h1>
