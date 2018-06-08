@@ -1,0 +1,33 @@
+{% extends "twitter/_layout" %}
+
+{% block main %}
+    <div class="col-md-12">
+        <h1>Single Tweet field</h1>
+
+        <h3>Configuration</h3>
+        <ol>
+            <li>Install the Twitter plugin.</li>
+            <li>Create a Tweet field called <strong>Single Tweet</strong> <small>(<code>singleTweet</code>)</small>.</li>
+            <li>Create a global called <strong>Twitter Example</strong> <small>(<code>twitterDemo</code>)</small>.</li>
+            <li>Add the “Single Tweet” to the <strong>Twitter Example</strong> global fields under the “Field Layout” tab.</li>
+            <li>Go to <strong>CP → Globals → Twitter Demo</strong> and add some tweet URLs.</li>
+        </ol>
+
+        <h3>Preview</h3>
+        {% if twitterDemo is defined and twitterDemo['singleTweet'] is defined %}
+            {% set tweet = craft.twitter.getTweetByUrl(twitterDemo.singleTweet) %}
+
+            {% if tweet %}
+                <div class="tweet">
+                    <img src="{{ tweet.getUserProfileImageUrl() }}" />
+                    <p><cite><a href="{{ tweet.url }}">{{ tweet.username }} (@{{ tweet.userScreenName }})</a></cite></p>
+                    <blockquote>{{ tweet.text|autoLinkTweet }}</blockquote>
+                </div>
+            {% endif %}
+        {% else %}
+            <p>Preview not available because the <strong><code>twitterDemo.singleTweet</code></strong> field couldn’t be found.</p>
+        {% endif %}
+    </div>
+{% endblock main %}
+
+
