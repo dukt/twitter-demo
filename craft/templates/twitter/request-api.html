@@ -2,7 +2,7 @@
 
 {% block main %}
     <div class="col-md-12">
-        <h1>Recent Tweets</h1>
+        <h1>Requesting the Twitter API</h1>
         <p>Display recent tweets by requesting twitter API from your templates.</p>
 
         <h3>Preview</h3>
@@ -25,22 +25,5 @@
                 {% endif %}
             </div>
         </div>
-
-        <h3>Template</h3>
-        <pre>{{ '{% set tweets = craft.twitter.get("statuses/user_timeline", {count:10}) %}
-
-{% if tweets %}
-
-    {% for tweet in tweets %}
-
-        {{ tweet.text|autoLinkTweet }}
-
-    {% endfor %}
-
-{% else %}
-    <p>No tweets</p>
-{% endif %}'|e('html') }}</pre>
-
-        <p>See <a href="https://github.com/dukt/twitter/blob/v2-docs/en/request-api.md">Requesting Twitter’s API</a> for more.</p>
     </div>
 {% endblock main %}
