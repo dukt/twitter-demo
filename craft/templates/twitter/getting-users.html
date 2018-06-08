@@ -1,0 +1,22 @@
+{% extends "twitter/_layout" %}
+
+{% block main %}
+    <div class="col-md-12">
+        <h1>Getting Users</h1>
+
+        <h2>Getting a user by ID</h2>
+        {% set twitterUser = craft.twitter.getUserById(236658433) %}
+
+        {% if twitterUser %}
+            <ul>
+                <li>{{ twitterUser.name }} (@{{ twitterUser.screen_name }})</li>
+                <li>{{ twitterUser.location }}</li>
+                <li>{{ twitterUser.description }}</li>
+            </ul>
+        {% endif %}
+        
+        <pre>{{ twitterUser|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+    </div>
+{% endblock main %}
+
+
