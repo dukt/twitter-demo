@@ -19,7 +19,7 @@
         {% if twitterDemo is defined and twitterDemo['multipleTweets'] is defined %}
             {% if twitterDemo.multipleTweets|length > 0 %}
                 {% for tweetBlock in twitterDemo.multipleTweets %}
-                    {% set tweet = craft.twitter.getTweetByUrl(tweetBlock.tweet) %}
+                    {% set tweet = craft.twitter.getTweet(tweetBlock.tweet) %}
 
                     {% if tweet %}
                         <div class="tweet">
