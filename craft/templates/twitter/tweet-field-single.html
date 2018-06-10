@@ -15,7 +15,7 @@
 
         <h3>Preview</h3>
         {% if twitterDemo is defined and twitterDemo['singleTweet'] is defined %}
-            {% set tweet = craft.twitter.getTweetByUrl(twitterDemo.singleTweet) %}
+            {% set tweet = craft.twitter.getTweet(twitterDemo.singleTweet) %}
 
             {% if tweet %}
                 <div class="tweet">
