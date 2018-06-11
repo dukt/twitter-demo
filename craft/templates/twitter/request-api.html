@@ -5,13 +5,13 @@
         <h1>Requesting the Twitter API</h1>
         <p>Display recent tweets by requesting twitter API from your templates.</p>
 
-        <h3>Preview</h3>
+        <h3>User Timeline</h3>
         <div class="panel panel-default">
             <div class="panel-body">
-                {% set tweets = craft.twitter.get("statuses/user_timeline", {count:5}) %}
+                {% set response = craft.twitter.get("statuses/user_timeline", {count:5}) %}
 
-                {% if tweets %}
-                    {% for tweet in tweets %}
+                {% if response.success %}
+                    {% for tweet in response.data %}
                         <div class="tweet">
                             {{ tweet.text|autoLinkTweet }}
 
@@ -25,5 +25,12 @@
                 {% endif %}
             </div>
         </div>
+
+
+        <h3>Single Tweet</h3>
+
+        {% set response = craft.twitter.get("statuses/show", {id: 1004820018939514880, tweet_mode: 'extended' }) %}
+
+        <pre>{{ response|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
     </div>
 {% endblock main %}
