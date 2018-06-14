@@ -7,13 +7,25 @@
 
         <h3>Single Tweet</h3>
 
-        {% set response = craft.twitter.get("statuses/show", {id: 1004820018939514880, tweet_mode: 'extended' }) %}
+        {% set response = craft.twitter.get("statusess/show", {id: 1004820018939514880, tweet_mode: 'extended' }) %}
 
-        <pre>{{ response|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+        {% if response.success %}
+            <pre>{{ response|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+        {% else %}
+            <p>An error occured:</p>
+            <pre>{{ response|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+        {% endif %}
 
         <h3>User Timeline</h3>
 
         {% set response = craft.twitter.get("statuses/user_timeline", {count:5}) %}
-        <pre>{{ response|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+
+        {% if response.success %}
+            {% set tweets = response.data %}
+            <pre>{{ tweets|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+        {% else %}
+            <p>An error occured:</p>
+            <pre>{{ response|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+        {% endif %}
     </div>
 {% endblock main %}
