@@ -32,12 +32,6 @@
                 {% if title is defined and title %}
                     <h1>{{ title|raw }}</h1>
                 {% endif %}
-
-                {% if extraPageHeaderHtml is defined %}
-                    <div id="extra-headers">
-                        {{ extraPageHeaderHtml }}
-                    </div>
-                {% endif %}
             </div>
 
             {% if tabs is defined and tabs %}
