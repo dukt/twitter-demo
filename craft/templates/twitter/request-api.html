@@ -13,7 +13,7 @@
             <pre>{{ response|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
         {% else %}
             <p>An error occured:</p>
-            <pre>{{ response|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+            <pre>{{ response.data|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
         {% endif %}
 
         <h3>User Timeline</h3>
@@ -25,7 +25,7 @@
             <pre>{{ tweets|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
         {% else %}
             <p>An error occured:</p>
-            <pre>{{ response|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+            <pre>{{ response.data|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
         {% endif %}
     </div>
 {% endblock main %}
