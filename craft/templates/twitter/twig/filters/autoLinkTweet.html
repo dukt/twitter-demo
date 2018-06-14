@@ -11,7 +11,8 @@
         <h3>Preview</h3>
         <div class="panel panel-default">
             <div class="panel-body">
-                {% set tweets = craft.twitter.get("statuses/user_timeline", {count:5}) %}
+                {% set response = craft.twitter.get("statuses/user_timeline", {count:5}) %}
+                {% set tweets = response.data %}
 
                 {% for tweet in tweets %}
                     <div class="tweet">
