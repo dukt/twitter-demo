@@ -5,27 +5,31 @@
         <h1>Requesting the Twitter API</h1>
         <p>Display recent tweets by requesting twitter API from your templates.</p>
 
+
+        <!-- Single Tweet -->
+
         <h2>Single Tweet</h2>
 
-        {% set response = craft.twitter.get("statuses/show", {id: 1004820018939514880, tweet_mode: 'extended' }) %}
+        {% set response = craft.twitter.get("statuses/show", {id: 1004820018939514880111, tweet_mode: 'extended' }) %}
 
+        <h3>Example</h3>
         {% if response.success %}
-            {% set tweet = response.data %}
-
-            <h3>Example</h3>
+            {% set tweet = craft.twitter.parseTweetData(response.data) %}
 
             <div class="tweet">
-                <img src="{{ craft.twitter.getUserProfileImageResourceUrl(tweet.user.id) }}" />
-                <p><cite><a href="https://twitter.com/{{ tweet.id }}">{{ tweet.user.name }} (@{{ tweet.user.screen_name }})</a></cite></p>
-                <blockquote>{{ tweet.full_text|autoLinkTweet }}</blockquote>
+                <img src="{{ tweet.getUserProfileImageUrl() }}" />
+                <p><cite><a href="{{ tweet.url }}">{{ tweet.username }} (@{{ tweet.userScreenName }})</a></cite></p>
+                <blockquote>{{ tweet.text|autoLinkTweet }}</blockquote>
             </div>
-
-            <h3>Response</h3>
-            <pre>{{ response|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
         {% else %}
-            <p>An error occured:</p>
-            <pre>{{ response.data|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+            <pre>Couldn’t get tweet.</pre>
         {% endif %}
+
+        <h3>Response</h3>
+        <pre>{{ response|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+
+
+        <!-- Current User Timeline -->
 
         <h2>Current User Timeline</h2>
 
@@ -39,6 +43,9 @@
             <p>An error occured:</p>
             <pre>{{ response.data|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
         {% endif %}
+
+
+        <!-- User Timeline -->
 
         <h2>User Timeline</h2>
 
