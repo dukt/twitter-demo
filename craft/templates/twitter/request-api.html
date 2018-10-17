@@ -5,11 +5,22 @@
         <h1>Requesting the Twitter API</h1>
         <p>Display recent tweets by requesting twitter API from your templates.</p>
 
-        <h3>Single Tweet</h3>
+        <h2>Single Tweet</h2>
 
-        {% set response = craft.twitter.get("statusess/show", {id: 1004820018939514880, tweet_mode: 'extended' }) %}
+        {% set response = craft.twitter.get("statuses/show", {id: 1004820018939514880, tweet_mode: 'extended' }) %}
 
         {% if response.success %}
+            {% set tweet = response.data %}
+
+            <h3>Example</h3>
+
+            <div class="tweet">
+                <img src="{{ craft.twitter.getUserProfileImageResourceUrl(tweet.user.id) }}" />
+                <p><cite><a href="https://twitter.com/{{ tweet.id }}">{{ tweet.user.name }} (@{{ tweet.user.screen_name }})</a></cite></p>
+                <blockquote>{{ tweet.full_text|autoLinkTweet }}</blockquote>
+            </div>
+
+            <h3>Response</h3>
             <pre>{{ response|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
         {% else %}
             <p>An error occured:</p>
