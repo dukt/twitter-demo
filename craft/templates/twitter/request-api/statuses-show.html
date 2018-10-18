@@ -1,0 +1,25 @@
+{% extends "twitter/_layout" %}
+{% import "twitter/_includes/macros" as macros %}
+
+{% block main %}
+    <div class="col-md-12">
+        <h1>statuses/show</h1>
+
+        <h2>Show a tweet by ID</h2>
+
+        {% set response = craft.twitter.get("statuses/show", {id: 1004820018939514880, tweet_mode: 'extended' }) %}
+
+        <h3>Preview</h3>
+        {% if response.success %}
+            {% set tweet = craft.twitter.parseTweetData(response.data) %}
+
+            {{ macros.tweet(tweet) }}
+        {% else %}
+            <pre>Couldn’t get tweet.</pre>
+        {% endif %}
+
+        <h3>Response</h3>
+        {{ macros.prettyPrint(response) }}
+
+    </div>
+{% endblock main %}

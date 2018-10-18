@@ -1,0 +1,44 @@
+{% extends "twitter/_layout" %}
+{% import "twitter/_includes/macros" as macros %}
+
+{% block main %}
+    <div class="col-md-12">
+        <h1>statuses/user_timeline</h1>
+
+
+        <!-- Current User Timeline -->
+
+        <h2>Current User Timeline</h2>
+
+        {% set response = craft.twitter.get("statuses/user_timeline", {count:5}) %}
+
+        <h3>Preview</h3>
+        {% if response.success %}
+            {% set tweets = response.data %}
+            <p>Found {{ tweets|length }} tweets.</p>
+        {% else %}
+            <p>Couldn’t retrieve user timeline.</p>
+        {% endif %}
+
+        <h3>Response</h3>
+        {{ macros.prettyPrint(response) }}
+
+
+        <!-- User Timeline -->
+
+        <h2>User Timeline</h2>
+
+        {% set response = craft.twitter.get("statuses/user_timeline", {screen_name:'CraftCMS', count:5}) %}
+
+        <h3>Preview</h3>
+        {% if response.success %}
+            {% set tweets = response.data %}
+            <p>Found {{ tweets|length }} tweets.</p>
+        {% else %}
+            <p>Couldn’t retrieve user timeline.</p>
+        {% endif %}
+
+        <h3>Response</h3>
+        {{ macros.prettyPrint(response) }}
+    </div>
+{% endblock main %}
