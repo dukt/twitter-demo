@@ -1,0 +1,11 @@
+{% macro tweet(tweet) %}
+    <div class="tweet">
+        <img src="{{ tweet.getUserProfileImageUrl() }}" />
+        <p><cite><a href="{{ tweet.url }}">{{ tweet.username }} (@{{ tweet.userScreenName }})</a></cite></p>
+        <blockquote>{{ tweet.text|autoLinkTweet }}</blockquote>
+    </div>
+{% endmacro %}
+
+{% macro prettyPrint(data) %}
+    <pre>{{ data|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+{% endmacro %}
