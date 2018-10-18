@@ -1,16 +1,33 @@
 {% extends "twitter/_layout" %}
+{% import "twitter/_includes/macros" as macros %}
 
 {% block main %}
     <div class="col-md-12">
         <h1>Getting Tweets</h1>
 
         <h2>Getting a tweet by URL</h2>
+
+        <h3>Preview</h3>
         {% set tweet = craft.twitter.getTweet('https://twitter.com/CraftCMS/status/998619839043256321') %}
-        <pre>{{ tweet|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+
+        {% if tweet %}
+            {{ macros.tweet(tweet) }}
+        {% endif %}
+
+        <h3>Response</h3>
+        {{ macros.prettyPrint(tweet) }}
 
         <h2>Getting a tweet by ID</h2>
+
+        <h3>Preview</h3>
         {% set tweet = craft.twitter.getTweet('998619839043256321') %}
-        <pre>{{ tweet|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+
+        {% if tweet %}
+            {{ macros.tweet(tweet) }}
+        {% endif %}
+
+        <h3>Response</h3>
+        {{ macros.prettyPrint(response) }}
     </div>
 {% endblock main %}
 
