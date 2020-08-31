@@ -6,9 +6,9 @@
 
         {% set response = craft.twitter.get('search/tweets', { q:'#craftcms' }) %}
 
-        {% if response.statuses is defined %}
+        {% if response.data is defined and response.data.statuses is defined %}
 
-            {% for tweetResponse in response.statuses %}
+            {% for tweetResponse in response.data.statuses %}
                 {% set tweets = tweets|merge([{
                     id: tweetResponse.id,
                     text: tweetResponse.text | autoLinkTweet,
